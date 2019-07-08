@@ -1,0 +1,89 @@
+<h1>Usuario <small>Nombre del Usuario</small> </h1>
+<hr>
+
+<div class="row text-right">
+    <div class="col">
+        <button class="btn btn-danger" [routerLink]="['/users']">
+          <i class="fa fa-arrow-left">
+            Regresar
+          </i>
+        </button>
+    </div>
+</div>
+
+
+<div class="row animated fadeIn faster">
+    <div class="col">
+        <form (ngSubmit)="guardar(f)" #f="ngForm">
+            <div class="form-group">
+                <label>Firebase ID</label>
+                <input type="text" name="id" id="id" class="form-control" disabled="disabled" placeholder="Firebase ID" [(ngModel)]="user.id" required>
+                <small class="form-text text-muted">Este campo es autogenerado</small>
+            </div>
+            <div class="form-group" [ngClass]="{'has-danger': nombre.errors?.required}">
+                <label>Nombres</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombres Completos" [(ngModel)]="user.nombre" #nombre="ngModel" required>
+                <div *ngIf="nombre.errors?.required" class="form-control-feedback">
+                    Este campo es requerido
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-danger': apellido.errors?.required}">
+                <label>Apellidos</label>
+                <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Apellidos Completos" [(ngModel)]="user.apellido" #apellido="ngModel" required>
+                <div *ngIf="apellido.errors?.required" class="form-control-feedback">
+                    Este campo es requerido
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-danger': cedula.errors?.required || cedula.errors?.pattern}">
+                <label>	Cédula</label>
+                <input type="text" name="cedula" id="cedula" class="form-control" placeholder="Cédula" [(ngModel)]="user.cedula" #cedula="ngModel" required pattern="^[0-9]+$">
+                <div *ngIf="cedula.errors?.required" class="form-control-feedback">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="cedula.errors?.pattern" class="form-control-feedback">
+                    Solo números
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-danger': correo.errors?.required || correo.errors?.pattern }">
+                <label>Correo</label>
+                <input type="email" name="correo" id="correo" class="form-control" placeholder="Correo electrónico" [(ngModel)]="user.correo" #correo="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #correo="ngModel" required>
+                <div *ngIf="correo.errors?.required" class="form-control-feedback">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="correo.errors?.pattern" class="form-control-feedback">
+                    Debe tener un correo valido
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-danger': telefono.errors?.required || telefono.errors?.pattern}">
+                <label>Teléfono</label>
+                <input type="telefono" name="telefono" id="telefono" class="form-control" placeholder="Teléfono" [(ngModel)]="user.telefono" #telefono="ngModel" pattern="^[0-9]+$" required>
+                <div *ngIf="telefono.errors?.required" class="form-control-feedback">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="telefono.errors?.pattern" class="form-control-feedback">
+                    Solo números
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <br>
+                <button *ngIf="user.estado" (click)="user.estado=false" class="btn btn-outline-success w-50" type="button">
+                    <i class="fas fa-eye"></i>
+                Activo
+              </button>
+                <button *ngIf="!user.estado" (click)="user.estado=true" class="btn btn-outline-danger w-50" type="button">
+                    <i class="fas fa-eye-slash"></i>
+                  Inactivo
+                </button>
+            </div>
+
+            <hr>
+            <div class="form-group text-center">
+                <button type="submit" class="brn btn-primary w-25">
+                <i class="fa fa-save"></i>
+                Guardar
+              </button>
+            </div>
+        </form>
+    </div>
+</div>
